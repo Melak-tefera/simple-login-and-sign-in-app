@@ -77,7 +77,7 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
         ],
       ),
-      backgroundColor: Colors.black,
+      backgroundColor: const Color.fromARGB(255, 210, 204, 204),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Center(
