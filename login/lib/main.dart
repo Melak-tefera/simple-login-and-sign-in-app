@@ -1,23 +1,48 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:login/auth/auth_get.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-void main() async{
-  // supabase init
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await dotenv.load(fileName: '.env');
+
+  final String supabaseUrl =
+      dotenv.env['SUPABASE_URL'] ?? '';
+
+  final String supabasePublishableKey =
+      dotenv.env['SUPABASE_PUBLISHABLE_KEY'] ?? '';
+
+  if (supabaseUrl.isEmpty) {
+    throw Exception(
+      'SUPABASE_URL is missing from the .env file',
+    );
+  }
+
+  if (supabasePublishableKey.isEmpty) {
+    throw Exception(
+      'SUPABASE_PUBLISHABLE_KEY is missing from the .env file',
+    );
+  }
+
   await Supabase.initialize(
-    publishableKey: "sb_publishable_4oJSQ1UccCw8BwQcKL01LA_9-I7gcOC",
-    url: "https://qgeacquzlaymovzxmvgo.supabase.co",
+    url: supabaseUrl,
+    publishableKey: supabasePublishableKey,
   );
+
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(),
+      debugShowCheckedModeBanner: false,
+      title: 'Supabase Login',
+      home: AuthGet(),
     );
   }
 }
