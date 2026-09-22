@@ -32,7 +32,7 @@ class _SignupPageState extends State<SignupPage> {
     if (email.isEmpty ||
         password.isEmpty ||
         confirmPassword.isEmpty) {
-      showMessage('Please fill in all fields');
+      showMessage('Please fill in all Fields');
       return;
     }
 
